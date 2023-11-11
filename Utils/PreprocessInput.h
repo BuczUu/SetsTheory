@@ -3,8 +3,11 @@
 //
 
 #ifndef SETSTHEORY_PREPROCESSINPUT_H
+#define OFFSET 32
 #define SETSTHEORY_PREPROCESSINPUT_H
 
+
+#include <string>
 
 class PreprocessInput {
 private:
@@ -14,7 +17,17 @@ private:
     unsigned int amountOfB;
 
 public:
+    PreprocessInput();
 
+    PreprocessInput(char *array, int newSize);
+
+    ~PreprocessInput();
+
+    static std::string removeSpacesCommasBrackets(std::basic_string<char> input, int size);
+
+    static std::string setSmallLetters(const char *input, int size);
+
+    static std::string getNames(char *input, int size);
 
 };
 

@@ -33,9 +33,9 @@ public:
 
     void printInput();
 
-    void printResult(const char *result);
+    static void printResult(const char *result);
 
-    void printResult(const std::string &result);
+    static void printResult(const std::string &result);
 };
 
 
