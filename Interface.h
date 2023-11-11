@@ -6,8 +6,8 @@
 #define SETSTHEORY_INTERFACE_H
 
 
-#include "Scanner.h"
-#include "PreprocessInput.h"
+#include "Utils/PreprocessInput.h"
+#include "Utils/Scanner.h"
 
 class Interface {
 private:

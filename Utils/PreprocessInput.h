@@ -7,6 +7,14 @@
 
 
 class PreprocessInput {
+private:
+    char *input;
+    unsigned int size;
+    unsigned int amountOfA;
+    unsigned int amountOfB;
+
+public:
+
 
 };
 
