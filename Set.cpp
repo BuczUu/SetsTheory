@@ -45,29 +45,30 @@ void Set::setSize(unsigned int newSize) {
 
 Set Set::operator+(const Set &otherSet) const {
     // todo : create add operator for sets
-    return Set();
+    return {};
 }
 
 Set Set::operator-(const Set &otherSet) const {
     // todo : create subtract operator for sets
-    return Set();
+    return {};
 }
 
 Set Set::operator*(const Set &otherSet) const {
     // todo : create multiply operator for sets
-    return Set();
+    return {};
 }
 
-Set &Set::operator=(const Set &otherSet)  {
+Set &Set::operator=(const Set &otherSet) {
     if (this == &otherSet) {
         return *this;
     }
-    Set result;
-    result.setSize(otherSet.getSize());
-    result.setElements(otherSet.getElements());
-    for (int i = 0; i < result.getSize(); ++i) {
-        result.getElements()[i] = otherSet.getElements()[i];
+
+    delete[] elements;
+    this->size = otherSet.getSize();
+    this->elements = new char[this->size];
+    for (int i = 0; i < this->size; ++i) {
+        this->elements[i] = otherSet.getElements()[i];
     }
 
-    return result;
+    return *this;
 }
