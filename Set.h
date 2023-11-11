@@ -34,6 +34,8 @@ public:
 
     Set operator*(const Set &otherSet) const;
 
+    Set &operator=(const Set &otherSet);
+
 };
 
 
