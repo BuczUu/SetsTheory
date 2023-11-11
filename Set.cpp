@@ -57,3 +57,17 @@ Set Set::operator*(const Set &otherSet) const {
     // todo : create multiply operator for sets
     return Set();
 }
+
+Set &Set::operator=(const Set &otherSet)  {
+    if (this == &otherSet) {
+        return *this;
+    }
+    Set result;
+    result.setSize(otherSet.getSize());
+    result.setElements(otherSet.getElements());
+    for (int i = 0; i < result.getSize(); ++i) {
+        result.getElements()[i] = otherSet.getElements()[i];
+    }
+
+    return result;
+}
