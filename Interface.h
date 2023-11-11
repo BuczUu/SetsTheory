@@ -23,5 +23,14 @@ public:
     void run();
 };
 
+//new A = {d,a,f,q} B = {a,b,c}
+//add
+//sub
+//mul
+//sets // printuje wszystkie zbiory nazwa+'='+{tablica (elementy oddzielone ', ')}
+//exit
+//help/info
+//is zbior1 in zbior2 => bool
+
 
 #endif //SETSTHEORY_INTERFACE_H
