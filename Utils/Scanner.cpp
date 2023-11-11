@@ -44,9 +44,9 @@ void Scanner::printInput() {
 }
 
 void Scanner::printResult(const char *result) {
-    // todo : print result
+    std::cout<<result;
 }
 
 void Scanner::printResult(const std::string &result) {
-    // todo : print result
+    std::cout<<result<<std::endl;
 }
