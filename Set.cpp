@@ -2,6 +2,7 @@
 // Created by ufabi on 11.11.2023.
 //
 
+#include <iostream>
 #include "Set.h"
 
 Set::Set() {
@@ -35,27 +36,71 @@ void Set::setElements(char *newElements) {
     this->elements = newElements;
 }
 
-unsigned int Set::getSize() const {
+int Set::getSize() const {
     return size;
 }
 
-void Set::setSize(unsigned int newSize) {
+void Set::setSize(int newSize) {
     this->size = newSize;
 }
 
+void Set::printElements() const {
+    for (int i = 0; i < this->size; ++i) {
+        std::cout << this->elements[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+bool Set::contains(char element) const {
+    for (int i = 0; i < this->size; ++i) {
+        if (this->elements[i] == element) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 Set Set::operator+(const Set &otherSet) const {
-    // todo : create add operator for sets
-    return {};
+    Set result;
+    result.setSize(this->size + otherSet.getSize());
+    for (int i = 0; i < this->size; ++i) {
+        result.getElements()[i] = this->elements[i];
+    }
+    int j = this->size;
+    for (int i = 0; i < otherSet.getSize(); ++i) {
+        if (!contains(otherSet.getElements()[i])) {
+            result.getElements()[j++] = otherSet.getElements()[i];
+        }
+    }
+    result.setSize(j);
+    return result;
 }
 
 Set Set::operator-(const Set &otherSet) const {
-    // todo : create subtract operator for sets
-    return {};
+    Set result;
+    result.setSize(this->size);
+    result.setElements(new char[result.getSize()]);
+    int j = 0;
+    for (int i = 0; i < this->size; ++i) {
+        if (!otherSet.contains(this->elements[i])) {
+            result.getElements()[j++] = this->elements[i];
+        }
+    }
+    result.setSize(j);
+    return result;
 }
 
 Set Set::operator*(const Set &otherSet) const {
-    // todo : create multiply operator for sets
-    return {};
+    Set result(std::min(this->size, otherSet.getSize()));
+    int j = 0;
+    for (int i = 0; i < this->size; ++i) {
+        if (otherSet.contains(this->elements[i])) {
+            result.getElements()[j++] = this->elements[i];
+        }
+    }
+    result.setSize(j);
+    return result;
 }
 
 Set &Set::operator=(const Set &otherSet) {

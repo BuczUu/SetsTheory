@@ -10,7 +10,7 @@
 class Set {
 private:
     char *elements;
-    unsigned int size; // number of elements in the set
+    int size; // number of elements in the set
 public:
     Set();
 
@@ -24,9 +24,13 @@ public:
 
     void setElements(char *elements);
 
-    unsigned int getSize() const;
+    int getSize() const;
 
-    void setSize(unsigned int size);
+    void setSize(int size);
+
+    bool contains(char element) const;
+
+    void printElements() const;
 
     Set operator+(const Set &otherSet) const;
 
