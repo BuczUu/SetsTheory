@@ -3,9 +3,14 @@
 //
 
 #include "PreprocessInput.h"
-#include <iostream>
 
 PreprocessInput::PreprocessInput() {
+    this->second = new Set();
+    this->first = new Set();
+}
+
+PreprocessInput::PreprocessInput(const std::string &input) {
+    this->input = input;
     this->second = new Set();
     this->first = new Set();
 }
@@ -26,8 +31,8 @@ std::string PreprocessInput::removeSpacesCommasBrackets(const std::string &input
 }
 
 void PreprocessInput::setNames() {
-    first->setName(split('=', input).first);
-    second->setName(split('=',split('}', input).second).first);
+    first->setName(removeSpacesCommasBrackets(split('=', input).first));
+    second->setName(removeSpacesCommasBrackets(split('=', split('}', input).second).first));
 
     if (first->getName().empty()) {
         first->setName("A");
@@ -35,22 +40,6 @@ void PreprocessInput::setNames() {
     if (second->getName().empty()) {
         second->setName("B");
     }
-
-    std::cout<<first->getName()<<std::endl;
-    std::cout<<second->getName()<<std::endl;
-}
-
-std::string PreprocessInput::setSmallLetters(const std::string &input) {
-    std::string result;
-    for (char letter: input) {
-        if (letter >= 'A' && letter <= 'Z') {
-            result += std::to_string(letter + OFFSET);
-        } else {
-            result += letter;
-        }
-    }
-
-    return result;
 }
 
 std::pair<std::string, std::string> PreprocessInput::split(char sign, const std::string &str) {
@@ -84,4 +73,54 @@ const std::string &PreprocessInput::getInput() const {
 
 void PreprocessInput::setInput(const std::string &newInput) {
     this->input = newInput;
+}
+
+void PreprocessInput::setArrays() {
+    std::string firstSet = removeDuplicates(removeSpacesCommasBrackets(split('}', substring('{', '}', input)).first));
+    std::string secondSet = removeDuplicates(removeSpacesCommasBrackets(split('=', split('}', input).second).second));
+
+    char *firstArray = new char[firstSet.length()];
+    char *secondArray = new char[secondSet.length()];
+
+    for (int i = 0; i < firstSet.length(); ++i) {
+        firstArray[i] = firstSet[i];
+    }
+
+    first->setSize(firstSet.length());
+    first->setElements(firstArray);
+
+    for (int i = 0; i < secondSet.length(); ++i) {
+        secondArray[i] = secondSet[i];
+    }
+
+    second->setSize(secondSet.length());
+    second->setElements(secondArray);
+}
+
+std::string PreprocessInput::substring(char begin, char end, std::string str) {
+    std::string result;
+    int i = 0;
+    while (str[i] != begin) {
+        i++;
+    }
+    for (int j = i; j < str.length(); ++j) {
+        if (str[i] == end) {
+            return result;
+        }
+        result += str[j];
+    }
+
+    return result;
+}
+
+std::string PreprocessInput::removeDuplicates(const std::string &str) {
+    std::string result;
+
+    for (char letter: str) {
+        if (result.find(letter) == std::string::npos) {
+            result += letter;
+        }
+    }
+
+    return result;
 }

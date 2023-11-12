@@ -60,6 +60,18 @@ void Set::printElements() const {
     std::cout << std::endl;
 }
 
+std::string Set::toStr() const {
+    std::string result = getName() + " = " + "{";
+    for (int i = 0; i < this->size; ++i) {
+        result += this->elements[i];
+        if (i != this->size - 1) {
+            result += ", ";
+        }
+    }
+    result += "}";
+    return result;
+}
+
 bool Set::contains(char element) const {
     return std::find(this->elements, this->elements + this->size, element) != this->elements + this->size;
 }
