@@ -8,27 +8,37 @@
 
 
 #include <string>
+#include "../Set.h"
 
 class PreprocessInput {
 private:
-    char *input;
-    unsigned int size;
-    unsigned int amountOfA;
-    unsigned int amountOfB;
-
+    std::string input;
+    Set *first;
+    Set *second;
 public:
     PreprocessInput();
 
-    PreprocessInput(char *array, int newSize);
-
     ~PreprocessInput();
 
-    static std::string removeSpacesCommasBrackets(std::basic_string<char> input, int size);
+    Set *getFirst() const;
 
-    static std::string setSmallLetters(const char *input, int size);
+    const std::string &getInput() const;
 
-    static std::string getNames(char *input, int size);
+    void setInput(const std::string &input);
 
+    void setFirst(Set *first);
+
+    Set *getSecond() const;
+
+    void setSecond(Set *second);
+
+    static std::string removeSpacesCommasBrackets(const std::string &input);
+
+    static std::string setSmallLetters(const std::string &input);
+
+    static std::pair<std::string, std::string> split(char sign, const std::string &str);
+
+    void setNames();
 };
 
 

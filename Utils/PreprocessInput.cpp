@@ -3,48 +3,85 @@
 //
 
 #include "PreprocessInput.h"
+#include <iostream>
 
 PreprocessInput::PreprocessInput() {
-//    this->size = newSize;
-    this->input = nullptr;
-    this->amountOfA = 0;
-    this->amountOfB = 0;
-}
-
-PreprocessInput::PreprocessInput(char *array, int newSize) {
-    this->size = newSize;
-    this->input = new char[newSize];
-    this->amountOfA = 0;
-    this->amountOfB = 0;
+    this->second = new Set();
+    this->first = new Set();
 }
 
 PreprocessInput::~PreprocessInput() {
-    delete input;
+    delete first;
+    delete second;
 }
 
-std::string PreprocessInput::removeSpacesCommasBrackets(std::basic_string<char> input, int size) {
+std::string PreprocessInput::removeSpacesCommasBrackets(const std::string &input) {
     std::string result;
-    for (int i = 0; i < size; i++) {
-        if (input[i] != ' ' && input[i] != ',' && input[i] != '{' && input[i] != '}') {
-            result += input[i];
+    for (char letter: input) {
+        if (letter != ' ' && letter != ',' && letter != '{' && letter != '}') {
+            result += letter;
         }
     }
     return result;
 }
 
-std::string PreprocessInput::getNames(char *input, int size) {
-    return std::string();
+void PreprocessInput::setNames() {
+    first->setName(split('=', input).first);
+    second->setName(split('=',split('}', input).second).first);
+
+    if (first->getName().empty()) {
+        first->setName("A");
+    }
+    if (second->getName().empty()) {
+        second->setName("B");
+    }
+
+    std::cout<<first->getName()<<std::endl;
+    std::cout<<second->getName()<<std::endl;
 }
 
-std::string PreprocessInput::setSmallLetters(const char *input, int size) {
+std::string PreprocessInput::setSmallLetters(const std::string &input) {
     std::string result;
-    for (int i = 0; i < size; i++) {
-        if (input[i] >= 'A' && input[i] <= 'Z') {
-            result += input[i] + OFFSET;
+    for (char letter: input) {
+        if (letter >= 'A' && letter <= 'Z') {
+            result += std::to_string(letter + OFFSET);
         } else {
-            result += input[i];
+            result += letter;
         }
     }
 
     return result;
+}
+
+std::pair<std::string, std::string> PreprocessInput::split(char sign, const std::string &str) {
+    for (int i = 0; i < str.length(); ++i) {
+        if (str[i] == sign) {
+            return std::make_pair(str.substr(0, i), str.substr(i + 1, str.length()));
+        }
+    }
+    return std::make_pair(str, "");
+}
+
+Set *PreprocessInput::getFirst() const {
+    return first;
+}
+
+void PreprocessInput::setFirst(Set *other) {
+    this->first = other;
+}
+
+Set *PreprocessInput::getSecond() const {
+    return second;
+}
+
+void PreprocessInput::setSecond(Set *other) {
+    this->second = other;
+}
+
+const std::string &PreprocessInput::getInput() const {
+    return input;
+}
+
+void PreprocessInput::setInput(const std::string &newInput) {
+    this->input = newInput;
 }
