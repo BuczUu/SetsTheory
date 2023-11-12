@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Set.h"
+#include <algorithm>
 
 Set::Set() {
     this->size = CAPACITY;
@@ -11,6 +12,10 @@ Set::Set() {
 }
 
 Set::Set(int size) {
+    if (size < 0) {
+        std::cout << "Size cannot be negative, your size has been changed on " << CAPACITY << std::endl;
+        size = CAPACITY;
+    }
     this->size = size;
     this->elements = new char[size];
 }
@@ -41,6 +46,10 @@ int Set::getSize() const {
 }
 
 void Set::setSize(int newSize) {
+    if (newSize < 0) {
+        std::cout << "Size cannot be negative, your size has been changed on " << CAPACITY << std::endl;
+        newSize = CAPACITY;
+    }
     this->size = newSize;
 }
 
@@ -52,13 +61,7 @@ void Set::printElements() const {
 }
 
 bool Set::contains(char element) const {
-    for (int i = 0; i < this->size; ++i) {
-        if (this->elements[i] == element) {
-            return true;
-        }
-    }
-
-    return false;
+    return std::find(this->elements, this->elements + this->size, element) != this->elements + this->size;
 }
 
 Set Set::operator+(const Set &otherSet) const {
@@ -116,4 +119,31 @@ Set &Set::operator=(const Set &otherSet) {
     }
 
     return *this;
+}
+
+const std::string &Set::getName() const {
+    return name;
+}
+
+void Set::setName(const std::string &newName) {
+    this->name = newName;
+}
+
+bool Set::operator==(const Set &otherSet) const {
+    if (this->size != otherSet.getSize()) {
+        return false;
+    }
+
+    if (this->size == 0 && otherSet.getSize() == 0) {
+        return true;
+    }
+
+    if (this->size == otherSet.getSize()) {
+        for (int i = 0; i < size; ++i) {
+            if (!otherSet.contains(this->elements[i])) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
