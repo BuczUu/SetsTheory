@@ -18,6 +18,8 @@ private:
 public:
     PreprocessInput();
 
+    explicit PreprocessInput(const std::string &input);
+
     ~PreprocessInput();
 
     Set *getFirst() const;
@@ -34,11 +36,15 @@ public:
 
     static std::string removeSpacesCommasBrackets(const std::string &input);
 
-    static std::string setSmallLetters(const std::string &input);
-
     static std::pair<std::string, std::string> split(char sign, const std::string &str);
 
     void setNames();
+
+    void setArrays();
+
+    static std::string substring(char begin, char end, std::string str);
+
+    static std::string removeDuplicates(const std::string &str);
 };
 
 

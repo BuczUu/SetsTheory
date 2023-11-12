@@ -13,6 +13,7 @@
                  "exit/end - exit program\n"
 
 #define ERROR "Unknown command! Type 'help' for more information.\n"
+#define RESULT_NAME "Result set"
 #define SETSTHEORY_INTERFACE_H
 
 
@@ -23,7 +24,7 @@
 class Interface {
 private:
     Scanner *scanner;
-//    PreprocessInput *preprocessInput;
+    PreprocessInput *preprocessInput;
     Set *setA;
     Set *setB;
     Set *setResult;

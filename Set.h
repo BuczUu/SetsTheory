@@ -51,6 +51,7 @@ public:
 
     bool operator==(const Set &otherSet) const;
 
+    std::string toStr() const;
 };
 
 
